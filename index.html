@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id="js-body">
+		
+	</div>
+
+
+
+	<script type="text/dom">
+
+		<!-- hello -->
+		var bodyContent = <h1>hello {%name%}</h1>
+		<button>goto {%name%}</button>
+
+		<!--12321  -->
+		var welcome = welcome to here
+	</script>
+
+	<script type="text/javascript" src='./static/jquery.min.js'></script>
+	<script type="text/javascript" src='dom.js'></script>
+	<script type="text/javascript">
+		var dom = new Dom();
+
+		$('#js-body').html(dom.get('bodyContent' , {
+			name : 'dom.js'
+		})).append(dom.get('test'))
+
+
+	</script>
+</body>
+</html>

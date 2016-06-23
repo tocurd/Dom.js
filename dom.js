@@ -1,33 +1,44 @@
 var Dom = (function(){
-	var demoBin = function(){};
+	var domBin = function(){};
+	var _self = {} , 
+		_thisDom = '';
 
-	demoBin.prototype.get = function(demoName , params){
-		var demoText = $('script[type="text/demo"]').html() + 'var';
-		if(demoText.indexOf('var ' + demoName + '=') == -1 && demoText.indexOf('var ' + demoName + ' =') == -1) return false;
-		
-		demoText = demoText.match(new RegExp("var " + demoName + "(.*)=[\\s\\S]*var"));
-		if(typeof demoText[0] == 'undefined') return false;
+	domBin.prototype.get = function(domName , params , is_jquery){
+		var domText = $('script[type="text/dom"]').html() + 'var';
+		if(domText.indexOf('var ' + domName + '=') == -1 && domText.indexOf('var ' + domName + ' =') == -1) return false;
 
-		paramsName = demoText[0].match(new RegExp("var " + demoName + "(.*)="));
-		if(typeof paramsName[0] == 'undefined') return false;
+		var headerName = domText.match(new RegExp("var " + domName + "(.*)=[ ]{1}"));
+		if(typeof headerName[0] == 'undefined') return false;
+		headerName = headerName[0];
 
-		demoText = $.trim(demoText[0].substring(demoText[0].indexOf(paramsName[0]) + paramsName[0].length, demoText[0].lastIndexOf("var")));
+		domText = $.trim(domText.substring(domText.indexOf(headerName) + headerName.length, domText.length));
+		domText = domText.substring(0 , domText.indexOf('var'));
+
+		if(typeof params == 'undefined') return domText;
 		$.each(params , function(key, value) {
-			if(demoText.indexOf("{%" + key + "%}") != false){
-				demoText = demoText.replace("{%" + key + "%}" , value);
-				console.log(demoText)
+			if(domText.indexOf("{%" + key + "%}") != false){
+				domText = _self.replaceAll(domText , "{%" + key + "%}" , value);
 			}
 		});
 
-		return demoText
+		_thisDom = domText;
+		domText = domText.replace(/<!--[^>]+-->/g,"");
+		return typeof is_jquery == 'boolean' && is_jquery ? $(_thisDom) : domText;
 	}
 
 
+	domBin.prototype.$this = function(){
+		return $(_thisDom);
+	}
+
+	_self.replaceAll = function(str, search , replace){
+		while (str.indexOf(search) >= 0){
+			str = str.replace(search, replace);
+		}
+		return str;
+	}
 
 
-
-
-	return demoBin;
+	return domBin;
 })(jQuery);
-
 
