@@ -1,5 +1,6 @@
-`dom.js` 是一个让您能以javascript的书写方式赋予某些javascript变量HTML代码的插件，使用这个插件可以让编写某些组件时更加舒适、简洁、明了。另外代码也可多次复用，`dom.js` 解决了HTML在javascript中需要用字符串来编写无法被编辑器解析的问题。
-
+##dom.js
+`dom.js` 是一个让您能以javascript的书写方式赋予某些javascript变量HTML代码的插件，使用这个插件可以让编写组件时更加舒适、简洁、明了。另外代码也可多次复用，`dom.js` 彻底解决了HTML在javascript中需要用字符串来编写无法被编辑器解析的问题。
+<br><hr><br>
 
 你可以这样写代码
 ```html
